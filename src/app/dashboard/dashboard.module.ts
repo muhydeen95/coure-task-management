@@ -6,6 +6,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { QuickActionsCardsComponent } from './components/quick-actions-cards/quick-actions-cards.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     SharedModule,
     ReactiveFormsModule,
+    MatTooltipModule
   ],
 })
 export class DashboardModule {}

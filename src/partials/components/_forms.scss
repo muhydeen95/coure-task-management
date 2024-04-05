@@ -43,7 +43,7 @@
   border: 0.1rem solid rgba($blue-700, 0.2);
   width: 100%;
   label {
-    font-family: $docstream_font !important;
+    font-family: $coure_font !important;
     font-weight: 400;
     font-size: 1.4rem;
     line-height: 2.1rem;
@@ -63,8 +63,8 @@
   border: none;
   &:checked {
     transform: scale(0.9);
-    background-color: $green-400;
-    border-color: $green-400;
+    background-color: $coure-color;
+    border-color: rgba($color: $coure-color, $alpha: 1.0);
   }
 }
 // .form-check-input[type="checkbox"] {
@@ -94,7 +94,7 @@
 }
 .form_group {
   margin-bottom: 2.4rem;
-  font-family: $docstream_font !important;
+  font-family: $coure_font !important;
   label {
     color: $text-body;
     font-weight: 400;
@@ -218,7 +218,6 @@
       font-weight: 600;
   }
   &-info{
-      border-bottom: 1px solid rgba($blue-900, 0.3);
       padding: 1.45rem 0;
       margin: 0;
       font-weight: 400;

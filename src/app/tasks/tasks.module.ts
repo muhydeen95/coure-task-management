@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaksListComponent } from './components/taks-list/taks-list.component';
-import { TakDialogComponent } from './dialogs/tak-dialog/tak-dialog.component';
+import { TasKListComponent } from './components/task-list/task-list.component';
+import { TaskDialogComponent } from './dialogs/task-dialog/task-dialog.component';
 import { TasksRoutingModule } from './tasks-routing.modue';
 import { SharedModule } from '@shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
   declarations: [
-    TaksListComponent,
-    TakDialogComponent
+    TasKListComponent,
+    TaskDialogComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     MatDialogModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatTooltipModule
   ]
 })
 export class TasksModule { }

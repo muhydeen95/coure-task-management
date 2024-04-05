@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CurrentUserService } from '@core/services/current-user.service';
-import { CurrentStepService } from '@shared/services/current-step.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,12 +11,11 @@ export class SidebarComponent implements OnInit {
   public showMinimizedMenu: boolean = false;
 
   @Output() showMinimized = new EventEmitter();
-  constructor(private _currentUser: CurrentUserService,private _step: CurrentStepService) {}
+  constructor(private _currentUser: CurrentUserService) {}
 
   ngOnInit(): void {}
 
   public toggleSidebar(reset?: boolean): void {
-    this._step.addRouteNumber(1);
     this.isOpen = !this.isOpen;
     if (this.showMinimizedMenu) {
       this.showMinimized.emit(true);

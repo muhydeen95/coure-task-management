@@ -1,42 +1,19 @@
 <div class="dashboard-wrapper m-0">
-  <div class="container">
-    <section class="dashboard-content mt-5">
-      <section class="row my-5">
-        <div class="col-md-6 col-lg-4">
-          <app-card
-            [name]="'Pending'"
-            [count]="dashboardMetrics!.pending"
-            color="warning"
-          ></app-card>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-          <app-card
-            [name]="'Ongoing'"
-            [count]="dashboardMetrics!.ongoing"
-            color="info"
-          ></app-card>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <app-card
-            [name]="'Completed'"
-            [count]="dashboardMetrics!.completed"
-            color="success"
-          ></app-card>
-        </div>
-      </section>
-      <app-searchbar
+    <div class="container">
+      <section class="dashboard-content mt-5">
+        <app-searchbar
           [btnName]="'New Task'"
           [btnIcon]="'new-application'"
           [canFilter]="true"
           [canSearch]="true"
           (filterAction)="openFilterDialog({isFetching: true, editObject: searchQuery})"
           (btnAction)="openDialog({isEditng: false, editObject: {id: newId}})"
+          (searchQuery)="getSearchQuery($event)"
+          (searchAction)="searchTask()"
       ></app-searchbar>
       <ng-container *ngIf="filteredTasks?.length! > 0">
         <div class="d-flex justify-content-between table-head">
           <h4>Recent Taks</h4>
-          <h6 class="click" routerLink="/tasks">View All</h6>
         </div>
         <section class="table-responsive my-5">
           <table class="table caption-top text-nowrap">
@@ -161,7 +138,6 @@
           (open_dialog)="openDialog({isEditng: false, editObject: {id: newId}})"
           *ngIf="filteredTasks?.length == 0"
       ></app-no-data>
-    </section>
-  </div>
+      </section>
+    </div>
 </div>
-

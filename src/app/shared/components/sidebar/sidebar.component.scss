@@ -84,7 +84,7 @@
     padding: 2rem 0;
     min-height: 100vh;
     position: absolute;
-    background-color: $blue-700;
+    background-color: rgba($coure-color, 0.75);
     // border-right: solid 0.1rem #f4efe3;
     width: 100%;
     @include minSize($canvas: L) {
@@ -128,10 +128,10 @@
           &.active {
             opacity: 1;
             background-color: rgba($white-100, 0.1);
-            border-right: solid 0.4rem $green-400;
+            border-right: solid 0.4rem $coure-color;
             .side-icon {
               svg path {
-                fill: $green-400;
+                fill: $white-100;
               }
             }
           }

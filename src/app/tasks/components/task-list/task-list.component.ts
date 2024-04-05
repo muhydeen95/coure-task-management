@@ -1,40 +1,33 @@
-import {
-  INITIAL_DASHBOARD_DATA,
-} from './../../models/dashboard.model';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  DashboardResponseDTO,
-} from 'app/dashboard/models/dashboard.model';
-import { FilterDialogComponent } from '@shared/dialogs/filter-dialog/filter-dialog.component';
+import { CurrentUserService } from '@core/services/current-user.service';
 import { DialogModel } from '@shared/components/models/dialog.model';
+import { FilterDialogComponent } from '@shared/dialogs/filter-dialog/filter-dialog.component';
+import { InitialSearchDTO, SearchDTO } from 'app/models/response.model';
 import { TaskDialogComponent } from 'app/tasks/dialogs/task-dialog/task-dialog.component';
 import { TASKPRIORITYENUM, TASKSTATUSENUM, Task } from 'app/tasks/models/task.model';
-import { CurrentUserService } from '@core/services/current-user.service';
-import { InitialSearchDTO, SearchDTO } from 'app/models/response.model';
+
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: 'app-task-list',
+  templateUrl: './task-list.component.html',
+  styleUrls: ['./task-list.component.scss']
 })
-export class DashboardComponent implements OnInit {
-  public tasks: Task[] = [];
-  public filteredTasks: Task[] = [];
-  public dashboardMetrics: DashboardResponseDTO = INITIAL_DASHBOARD_DATA;
+export class TasKListComponent implements OnInit {
+  public tasks: Task[] = []; 
+  public filteredTasks: Task[] = []; 
   public taskStatusEnum = TASKSTATUSENUM;
   public taskPriorityEnum = TASKPRIORITYENUM;
   public is_initial: boolean = true;
   public newId: number = 0;
   public searchQuery: SearchDTO = { ...InitialSearchDTO, search: '' };
-  
-  constructor(
-    public dialog: MatDialog,
-    private _current: CurrentUserService
-  ) {}
 
-  ngOnInit() {
+  constructor(
+    private dialog: MatDialog,
+    private _current: CurrentUserService
+  ) { }
+
+  ngOnInit(): void {
     this.tasks = this.filteredTasks = this._current.getTasks();
-    this.filterTaskByStatus();
     this.generateId();
   }
 
@@ -43,23 +36,6 @@ export class DashboardComponent implements OnInit {
     (this.tasks.length > 0) 
       ? this.newId = lastItem.id + 1
       : this.newId = 1;
-  }
-
-  filterTaskByStatus() {
-    const pending: any[] = this.tasks.filter((task: Task) => {
-      return task.status === this.taskStatusEnum.PENDING;
-    });
-    const ongoing: any[] = this.tasks.filter((task: Task) => {
-      return task.status === this.taskStatusEnum.ONGOING;
-    });
-    const completed: any[] = this.tasks.filter((task: Task) => {
-      return task.status === this.taskStatusEnum.COMPLETED;
-    });
-    this.dashboardMetrics = {
-      pending: pending.length,
-      ongoing: ongoing.length,
-      completed: completed.length,
-    };
   }
 
   public openFilterDialog(
@@ -74,25 +50,6 @@ export class DashboardComponent implements OnInit {
       this.searchQuery = event.editObject;
       this.filterTask(event.editObject)
     });
-  }
-
-  public filterTask(payload: SearchDTO) {
-    this.is_initial = false;
-    if(payload.priority && payload.status) {
-      this.filteredTasks = this.tasks.filter((t: Task) => {
-        return (t.priority === payload.priority) && (t.status === payload.status);
-      });
-    } else if(payload.priority) {
-      this.filteredTasks = this.tasks.filter((t: Task) => {
-        return t.priority === payload.priority;
-      });
-    } else if(payload.status) {
-      this.filteredTasks = this.tasks.filter((t: Task) => {
-        return t.status === payload.status;
-      });
-    } else {
-      this.filteredTasks = this.tasks;
-    }
   }
 
   public openDialog(
@@ -119,6 +76,42 @@ export class DashboardComponent implements OnInit {
     this.filteredTasks = this.tasks.filter(obj => obj.id !== id);
     this.tasks = this.filteredTasks;
     this._current.storeTasks(this.tasks);
+  }
+
+  getSearchQuery(query: string) {
+    this.searchQuery.search = query;
+  }
+
+  searchTask() {
+    this.is_initial = false;
+    if(this.searchQuery.search) {
+      this.filteredTasks = this.tasks.filter(obj =>
+        Object.values(obj).some(value =>
+            typeof value === 'string' && value.includes(this.searchQuery.search)
+        )
+      );
+    } else {
+      this.filteredTasks= this.tasks;
+    }
+  }
+
+  public filterTask(payload: SearchDTO) {
+    this.is_initial = false;
+    if(payload.priority && payload.status) {
+      this.filteredTasks = this.tasks.filter((t: Task) => {
+        return (t.priority === payload.priority) && (t.status === payload.status);
+      });
+    } else if(payload.priority) {
+      this.filteredTasks = this.tasks.filter((t: Task) => {
+        return t.priority === payload.priority;
+      });
+    } else if(payload.status) {
+      this.filteredTasks = this.tasks.filter((t: Task) => {
+        return t.status === payload.status;
+      });
+    } else {
+      this.filteredTasks = this.tasks;
+    }
   }
 
 }

@@ -4,21 +4,8 @@
 $coure-color: #fb383b;
 $blue-100: #f0f2f9;
 
-$blue-300: #1890ff;
 $blue-700: #182252;
-$blue-900: #161b37;
 
-// $blue-300: #1890ff;
-// $blue-700: #01AEEF;
-// $blue-900: #161b37;
-
-$green-400: #2db2a7;
-$green-600: #00a5ab;
-$green-700: #008085;
-
-// $green-400: #b74257;
-// $green-600: #cc334f;
-// $green-700: #E32347;
 
 // Neutrals & Shades
 $white-100: #ffffff;
@@ -27,11 +14,8 @@ $white-300: #fafafa;
 $white-700: #f2f2f2;
 $text-body: #464e75;
 $black-100: #000000;
-$black-850: #1f1f1f;
-$grey-300: rgba($blue-700, 0.07);
+$grey-500: rgba($blue-700, 0.07);
 $grey-400: rgba($blue-700, 0.1);
-$grey-500: rgba($blue-900, 0.2);
-$grey-900: #dddddd;
 
 // Alerts
 $success: #5C993D;
@@ -39,16 +23,10 @@ $success-100: #4C9926;
 $error: #d93b2b;
 $info: #418ed9;
 $warning: #f2b12e;
-$success-light: #F3FFED;
-$error-light: rgba($error, 0.1);
-
-$warning-light: #FFF9ED;
 
 $primary: #418ED9;
-$primary-light: #EDF6FF;
 $tip: #4d4d4d;
-$tip-light: rgba($tip, 0.1);
 
 //Fonts specified by Emmanuel
-$docstream_font: "poppins", sans-serif;
-$docstream_font_bold: "poppins bold", sans-serif;
+$coure_font: "poppins", sans-serif;
+$coure_font_bold: "poppins bold", sans-serif;
