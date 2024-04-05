@@ -32,6 +32,8 @@
           [canSearch]="true"
           (filterAction)="openFilterDialog({isFetching: true, editObject: searchQuery})"
           (btnAction)="openDialog({isEditng: false, editObject: {id: newId}})"
+          (searchQuery)="getSearchQuery($event)"
+          (searchAction)="searchTask()"
       ></app-searchbar>
       <ng-container *ngIf="filteredTasks?.length! > 0">
         <div class="d-flex justify-content-between table-head">

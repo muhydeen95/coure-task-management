@@ -85,11 +85,9 @@ export class TasKListComponent implements OnInit {
   searchTask() {
     this.is_initial = false;
     if(this.searchQuery.search) {
-      this.filteredTasks = this.tasks.filter(obj =>
-        Object.values(obj).some(value =>
-            typeof value === 'string' && value.includes(this.searchQuery.search)
-        )
-      );
+      this.filteredTasks = this.tasks.filter(task => {
+        return (task.title).toLowerCase().trim() === (this.searchQuery.search).toLowerCase().trim()
+      });
     } else {
       this.filteredTasks= this.tasks;
     }

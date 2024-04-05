@@ -8,7 +8,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Accessing App
 
-Enter your name as `Username` and `password`. Then you get navigated to the user dashboard where you get summary of the task available in the system. Click on `Tasks` from sidebar to view list of all available tasks, create new task, filter task, search task, update and delete task
+Enter your name as `Username` and `password`. Then you get navigated to the user dashboard where you get summary of the task available in the system. Click on `Tasks` from sidebar to view list of all available tasks, create new task, filter task, search task by title, update and delete task
 
 ## Code scaffolding
 

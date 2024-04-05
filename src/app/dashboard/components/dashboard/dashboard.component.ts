@@ -95,6 +95,21 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  getSearchQuery(query: string) {
+    this.searchQuery.search = query;
+  }
+
+  searchTask() {
+    this.is_initial = false;
+    if(this.searchQuery.search) {
+      this.filteredTasks = this.tasks.filter(task => {
+        return (task.title).toLowerCase().trim() === (this.searchQuery.search).toLowerCase().trim()
+      });
+    } else {
+      this.filteredTasks= this.tasks;
+    }
+  }
+
   public openDialog(
     payload: { isEditing?: boolean; editObject?: Task } | any
   ): void {
