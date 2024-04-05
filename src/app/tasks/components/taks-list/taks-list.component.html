@@ -1,0 +1,135 @@
+<div class="dashboard-wrapper m-0">
+    <div class="container">
+      <section class="dashboard-content mt-5">
+        <app-searchbar
+          [btnName]="'New Task'"
+          [btnIcon]="'new-application'"
+          [canFilter]="true"
+          [canSearch]="true"
+          (filterAction)="openFilterDialog({isFetching: true, editObject: searchQuery})"
+          (btnAction)="openDialog({isEditng: false, editObject: {id: newId}})"
+          (searchQuery)="getSearchQuery($event)"
+          (searchAction)="searchTask()"
+      ></app-searchbar>
+      <ng-container *ngIf="filteredTasks?.length! > 0">
+        <div class="d-flex justify-content-between table-head">
+          <h4>Recent Taks</h4>
+        </div>
+        <section class="table-responsive my-5">
+          <table class="table caption-top text-nowrap">
+            <ng-container>
+              <thead>
+                <tr>
+                  <th>S/N</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Due Date</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+            </ng-container>
+            <tbody>
+              <ng-container>
+                <tr *ngFor="let task of filteredTasks; index as i">
+                  <td>
+                    {{ i + 1 }}
+                  </td>
+                  <td>{{ task.title }}</td>
+                  <td>{{ task.description }}</td>
+                  <td>{{ task.dueDate | date }}</td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <span
+                        class="dot me-2"
+                        [ngClass]="{
+                          'dot-warning':
+                            task?.priority ==
+                              taskPriorityEnum.HIGH,
+                          'dot-error':
+                            task?.priority ==
+                            taskPriorityEnum.URGENT,
+                          'dot-primary':
+                            task?.priority ==
+                            taskPriorityEnum.NORMAL,
+                          'dot-grey':
+                            task?.priority ==
+                            taskPriorityEnum.LOW
+                        }"
+                      >
+                      </span>
+                      <span>
+                        {{
+                          task?.priority ==
+                          taskPriorityEnum.URGENT
+                            ? "Urgent"
+                            : task?.priority ==
+                              taskPriorityEnum.HIGH
+                            ? "High"
+                            : task?.priority ==
+                              taskPriorityEnum.NORMAL
+                            ? "Normal"
+                            : task?.priority ==
+                              taskPriorityEnum.LOW
+                            ? "Low"
+                            : "--"
+                        }}
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center me-2">
+                        <span
+                          class="badge"
+                          [ngClass]="{
+                            'badge-success': task?.status === taskStatusEnum.COMPLETED,
+                            'badge-warning': task?.status === taskStatusEnum.PENDING,
+                            'badge-info': task?.status === taskStatusEnum.ONGOING
+                          }"
+                        >
+                          {{
+                            task?.status === taskStatusEnum.COMPLETED
+                              ? "Completed"
+                              : task?.status === taskStatusEnum.ONGOING
+                              ? "Ongoing"
+                              : task?.status === taskStatusEnum.PENDING
+                              ? "Pending"
+                              : "--"
+                          }}
+                        </span>
+                      </div>
+                  </td>
+                  <td>
+                    <span
+                      class="me-3 click"
+                      (click)="openDialog({isEditing: true, editObject: task})"
+                    >
+                      <img src="assets/icons/edit.svg" class="me-2" />
+                      Update
+                    </span>
+                    <span
+                      class="click"
+                      (click)="deleteTask(task.id)"
+                    >
+                      <img src="assets/icons/trash.svg" class="me-2" />
+                      Delete
+                    </span>
+                  </td>
+                </tr>
+              </ng-container>
+
+            </tbody>
+
+          </table>
+        </section>
+      </ng-container>
+      <app-no-data
+          name="task"
+          [is_initial]="is_initial"
+          (open_dialog)="openDialog({isEditng: false, editObject: {id: newId}})"
+          *ngIf="filteredTasks?.length == 0"
+      ></app-no-data>
+      </section>
+    </div>
+</div>
